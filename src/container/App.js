@@ -20,7 +20,7 @@ class App extends React.Component {
   onSubmitAdd = (event) => {
     event.preventDefault();
     const newTasks = [...this.state.tasks];
-    newTasks.push({ task: this.state.input });
+    newTasks.push({ name: this.state.input, done: false });
     localStorage.setItem('tasks', JSON.stringify(newTasks));
     this.setState({ tasks: newTasks });
     event.target.reset();
@@ -30,6 +30,14 @@ class App extends React.Component {
     const index = event.target.dataset.index;
     const newTasks = [...this.state.tasks];
     newTasks.splice(index, 1);
+    localStorage.setItem('tasks', JSON.stringify(newTasks));
+    this.setState({ tasks: newTasks });
+  };
+
+  onToggleDone = (event) => {
+    const index = event.target.dataset.index;
+    const newTasks = [...this.state.tasks];
+    newTasks[index].done = !newTasks[index].done;
     localStorage.setItem('tasks', JSON.stringify(newTasks));
     this.setState({ tasks: newTasks });
   };
@@ -46,6 +54,7 @@ class App extends React.Component {
           <TasksList
             tasks={this.state.tasks}
             onClickDelete={this.onClickDelete}
+            onToggleDone={this.onToggleDone}
           />
         </div>
       </div>
