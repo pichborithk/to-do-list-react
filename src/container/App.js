@@ -2,6 +2,7 @@ import React from 'react';
 import InputBox from '../components/InputBox';
 import TasksList from '../components/TasksList';
 import './App.css';
+import background from '../school-spiral-notebook-pink-background-stickers-lie-top-sheet-stationery-notes_78492-6199.jpg';
 
 class App extends React.Component {
   constructor() {
@@ -28,12 +29,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='App'>
-        <InputBox
-          onInputChange={this.onInputChange}
-          onSubmitAdd={this.onSubmitAdd}
-        />
-        <TasksList tasks={this.state.tasks} />
+      <div>
+        <img src={background} alt='background' />
+        <div className='App'>
+          <InputBox
+            onInputChange={this.onInputChange}
+            onSubmitAdd={this.onSubmitAdd}
+          />
+          <TasksList tasks={this.state.tasks} />
+        </div>
       </div>
     );
   }
