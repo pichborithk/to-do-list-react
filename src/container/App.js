@@ -8,14 +8,12 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      tasks: [{ task: 'write' }, { task: 'read' }, { task: 'sleep' }],
+      tasks: JSON.parse(localStorage.getItem('tasks')) || [],
       input: '',
     };
   }
 
   onInputChange = (event) => {
-    console.log(event.target.value);
-
     this.setState({ input: event.target.value });
   };
 
@@ -23,8 +21,17 @@ class App extends React.Component {
     event.preventDefault();
     const newTasks = [...this.state.tasks];
     newTasks.push({ task: this.state.input });
+    localStorage.setItem('tasks', JSON.stringify(newTasks));
     this.setState({ tasks: newTasks });
     event.target.reset();
+  };
+
+  onClickDelete = (event) => {
+    const index = event.target.dataset.index;
+    const newTasks = [...this.state.tasks];
+    newTasks.splice(index, 1);
+    localStorage.setItem('tasks', JSON.stringify(newTasks));
+    this.setState({ tasks: newTasks });
   };
 
   render() {
@@ -36,7 +43,10 @@ class App extends React.Component {
             onInputChange={this.onInputChange}
             onSubmitAdd={this.onSubmitAdd}
           />
-          <TasksList tasks={this.state.tasks} />
+          <TasksList
+            tasks={this.state.tasks}
+            onClickDelete={this.onClickDelete}
+          />
         </div>
       </div>
     );

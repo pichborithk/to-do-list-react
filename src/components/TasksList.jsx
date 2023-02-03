@@ -1,11 +1,16 @@
 import React from 'react';
 import Task from './Task';
 
-const TasksList = ({ tasks }) => {
+const TasksList = ({ tasks, onClickDelete }) => {
   return (
     <ul>
       {tasks.map((task, index) => (
-        <Task task={task} key={index} index={index} />
+        <Task
+          task={task}
+          key={index}
+          index={index}
+          onClickDelete={onClickDelete}
+        />
       ))}
     </ul>
   );
