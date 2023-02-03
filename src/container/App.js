@@ -1,25 +1,42 @@
-import logo from '../logo.svg';
+import React from 'react';
+import InputBox from '../components/InputBox';
+import TasksList from '../components/TasksList';
 import './App.css';
 
-function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      tasks: [{ task: 'write' }, { task: 'read' }, { task: 'sleep' }],
+      input: '',
+    };
+  }
+
+  onInputChange = (event) => {
+    console.log(event.target.value);
+
+    this.setState({ input: event.target.value });
+  };
+
+  onSubmitAdd = (event) => {
+    event.preventDefault();
+    const newTasks = [...this.state.tasks];
+    newTasks.push({ task: this.state.input });
+    this.setState({ tasks: newTasks });
+    event.target.reset();
+  };
+
+  render() {
+    return (
+      <div className='App'>
+        <InputBox
+          onInputChange={this.onInputChange}
+          onSubmitAdd={this.onSubmitAdd}
+        />
+        <TasksList tasks={this.state.tasks} />
+      </div>
+    );
+  }
 }
 
 export default App;
