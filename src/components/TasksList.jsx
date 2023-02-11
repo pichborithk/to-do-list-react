@@ -22,16 +22,17 @@ const TasksList = () => {
   const renderTasks = tasks.map((task, index) => {
     return (
       <li key={index}>
-        <label htmlFor={`task-${index}`}>{task.name}</label>
         <input
+          className='check-box'
           type='checkbox'
           id={`task-${index}`}
           data-index={index}
           defaultChecked={task.isDone}
           onClick={onCheckClicked}
         />
+        <label htmlFor={`task-${index}`}>{task.name}</label>
         <button data-index={index} onClick={onDeleteClicked}>
-          Delete
+          <i class='fa-solid fa-trash'></i>
         </button>
       </li>
     );
