@@ -31,7 +31,7 @@ const InputBox = () => {
         required
         onChange={onInputChange}
       />
-      <input type='submit' value='+ Add' />
+      <input className='submit' type='submit' value='+ Add' />
     </form>
   );
 };
